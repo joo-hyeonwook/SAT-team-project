@@ -1,7 +1,7 @@
 class GameManager {
     public: 
-    int map[5][5];//맵 배열
-    int printMap(int map[5][5]);//맵 출력 함수
+    int map[5][5] = {0, };//맵 배열
+    void printMap(int map[5][5]);//맵 출력 함수
     int *exit(int map[5][5]);//배열 인덱스의 주소 반환
     int dice();//주사위 함수
     void battleStart();
