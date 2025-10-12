@@ -1,0 +1,30 @@
+class GameManager {
+    public: 
+    int map[5][5] = {0, };//맵 배열 생성
+    void printMap(int map[5][5]);//맵 출력 함수
+    int getExit(int map[5][5]);//배열 인덱스의 주소 반환
+    int getDice();//주사위 함수
+    void battleStart();
+    void battle();
+    void battleEnd();
+    void gameOver();
+};
+printMap: 이중 반복문 사용해 각 타일을 [ ]과 같은 형태로 출력. 내부 반복문 속에서 플레이어, 출구 위치 인덱스 출력 시 'P' 또는 'E'를 대괄호 안에 출력
+
+getExit:  난수 생성 라이브러리를 통해 0-4 사이의 값을 무작위로 두 번 얻어 해당 값에 해당하는 인덱스를 출구로 함. 출구의 좌표가 map[x][y]와 같은 경우에 x*10+y를 반환함.
+
+Ex) if (exit == map[4][3]){
+    return 43;
+}
+
+getDice: 난수 생성 라이브러리 사용, 1-6 사이의 무작위 값을 두 번 얻어 더한 값(2-12)를 반환함.
+
+battleStart: 플레이어와 적의 위치가 같을 시 battle 함수 호출함.
+
+battle: 두 캐릭터 중 하나의 체력이 0이 될 때까지 각 캐릭터의 행동 함수를 번갈아 호출함. 둘 중 하나의 체력이 0이 될 시 battleEnd 함수 호출.
+
+battleEnd: 체력이 0인 클래스 삭제. 만약 플레이어가 삭제 대상이면 gameOver 함수 호출, 이외의 경우에는 메인 함수로 복귀.
+
+gameOver: 게임오버 메시지 출력 후 파일 종료.
+
+gameClear: 게임 클리어 메시지 출력 후 파일 종료.

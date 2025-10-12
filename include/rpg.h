@@ -1,13 +1,14 @@
 class GameManager {
     public: 
-    int map[5][5] = {0, };//맵 배열
+    int map[5][5] = {0, };//맵 배열 생성
     void printMap(int map[5][5]);//맵 출력 함수
-    int *exit(int map[5][5]);//배열 인덱스의 주소 반환
-    int dice();//주사위 함수
+    int getExit(int map[5][5]);//배열 인덱스의 주소 반환
+    int getDice();//주사위 함수
     void battleStart();
     void battle();
     void battleEnd();
     void gameOver();
+    void gameClear();
 };
 class Character {
     int *location;//배열 인덱스의 주소 
@@ -19,10 +20,13 @@ class Character {
 
 };
 class Player : Character {
-    int fitstLocation(int *location);
+    int fitstLocation();
+    int getLocation(int *location);//배열 인덱스의 주소 반환
     int move(int *location);//배열 인덱스의 주소 반환
+    void getPlayerAction(); //플레이어 행동 선택
     void run();
 };
-class Enemy1 : Character {
+class Enemy : Character {
     int makeLocaiotn (int *location);//배열 인덱스의 주소 반환
+    void getEnemyAction(); //적 행동 선택
 };
