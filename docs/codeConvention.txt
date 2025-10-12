@@ -1,0 +1,104 @@
+Visual C++: Always use property sheets to change project settings
+프로젝트 설정에서 컴파일 경고를 비활성화하지 마라. #pragma를 사용하라.
+
+ 
+1. 네이밍 규칙 및 스타일
+ 
+클래스 및 구조체 : 파스칼(Pascal) Ex) class PlayerManager;struct AnimationInfo;
+ 
+지역 변수 및 지역 함수 파라미터 : 카멜(camel) Ex) void SomeMethod(const int someParameter);{  int someNumber;}
+ 
+퍼블릭 함수엔 파스칼 Ex) public:  void DoSomething();
+
+프라이빗 함수엔 카멜 Ex) private:  void doSomething();
+
+상수는 _와 대문자 Ex) constexpr int SOME_CONSTANT = 1;
+
+네임 스페이스는 전부 소문자 Ex) namespace abc{};
+
+부울 변수에 대해서는 퍼블릭, 프라이빗 구분 Ex) bool bFired; // for local and public member variablebool mbFired; // for private class member variable
+
+인터페이스는 접미사 I로 시작 Ex) class ISomeInterface;
+
+이넘은 e로 시작 Ex) enum class eDirection{  North,  South}
+
+멤버 변수(프로텍티드, 프라이빗)는 m으로 시작 Ex) class Employee{protected:  int mDepartmentID;private:  int mAge;}
+ 
+리턴 값이 있는 함수는 함수명 안에 리턴 내용을 명시 Ex) uint32_t GetAge() const;
+
+단순 루프에 쓰는 문자가 아닌 이상, 용도를 지칭하는 변수를 사용(단순히 a, b 말고 이름에 용도가 들어가게)
+ 
+뒤에 추가 단어가 없는 경우에는 약자로 된 모든 문자를 대문자로 사용 Ex) int OrderID;int HttpCode;
+
+클래스 멤버 변수에 항상 setter 및 getter 사용 Ex) Use:class Employee{  public:   const string& GetName() const;   void SetName(const string& name);  private:    string mName;}Instead of:class Employee{  public:    string Name;}
+
+구조체는 반드시 퍼블릭 멤버 변수를 가지도록 하며, 함수를 가지지 않도록 하고 멤버변수 네이밍에 대해서는 파스칼을 사용 Ex) struct MeshData{  int32_t VertexCount;}
+
+외부 헤더 파일에는 #include<> 를 사용
+
+내부 헤더 파일에는 #include ""  를 사용
+
+외부 헤더 파일을 먼저 입력한 다음 가능하면 내부 헤더 파일을 알파벳 순서로 넣기#include <vector>#include <unordered_map>#include "AnimationInfo.h"
+
+include문과 바디 사이에 줄 한칸 띄우기
+
+#pragma once를 모든 헤더파일 첫 부분에 사용. 중복 인클루드를 막음
+
+탭은 기본적으로 4칸 띄어쓰기로
+
+로컬 변수를 선언하고 쓸때는 쓰이는 가장 가까운 곳에 쓰기. 선언을 최대한 미루기.
+ 
+한줄의 내용이라도 개행해서 쓰기. Ex) 
+if (bSomething) {
+return;
+}
+ 
+더블을 사용하지 않는 한 f를 붙여서 플롯값에 대해 명시하기. Ex) float f = 0.5f;
+
+스위치 문은 디폴트 케이스를 항상 만들기. Ex)
+switch (number){ 
+ case n:    ...     break;  
+default:    break;
+
+함수 인자값과 로컬 변수에 대해 최대한 const를 사용.
+
+멤버 함수내 값이 변경될일 없다면 반드시 const를 사용.int GetAge() const;
+
+const 값을 리턴하지 말 것. 참조와 포인터에만 사용할 것.
+
+재귀함수는 함수 네이밍안에 재귀함수라는 내용이 들어있도록 할 것.void FibonacciRecursive();
+
+클래스의 구성은 아래와 같은 순서를 따르자.
+-friend 클래스
+-public 메서드
+-protected 메서드
+-private 메서드
+-protected 변수
+-private 변수
+ 
+여러 개의 작은 클래스를 그룹화하는 것이 타당하지 않다면 각 클래스는 별도의 소스 파일을 만들것. 
+
+파일 이름은 최상위 클래스 이름과 동일해야 한다. Ex) class PlayerAnimation; -> PlayerAnimation.cpp, PlayerAnimation.h
+
+모든 메모리 할당은 New 와 Delete 로만 이루어질것.
+
+memset, memcpy and memmove과 같은 작업 필요할 시 MemSet, MemCpy and MemMove 직접 만들어 사용
+
+어떤 이유로든 nullptr이 필요하지 않다면 일반적으로 참조(&)를 포인터보다 선호.
+ 
+매개 변수에 포인터를 사용. 또한 기능 매개변수를 out을 접두사로 사용. Ex) 
+function:void GetScreenDimension(uint32_t* const outWidth, uint32_t* const  outHeight) {
+caller:uint32_t width;uint32_t height;
+GetScreenDimension(&width, &height);
+}
+위의 출력 변수는 null이어서는 안된다. Assert를 사용해라. Ex)
+void GetScreenDimension(uint32_t* const outWidth, uint32_t* const  outHeight) {
+Assert(outWidth);  Assert(outHeight);
+}
+ 
+파라미터를 내부적으로 저장하려면 포인터를 사용해라. Ex) void AddMesh(Mesh* const mesh) {
+mMeshCollection.push_back(mesh);
+} 
+
+
+출처: https://scriptplay.tistory.com/381 [my study note.:티스토리]
