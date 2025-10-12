@@ -1,8 +1,8 @@
 #include <iostream>
 #include<cstdlib>
 #include<ctime>
+#include "../include/rpg.h"
 
-#include "rpg.h"
 
 GameManager printmap(int *playerLocation, int *exit) {
     for (int i = 0; i < 5; ++i) {
