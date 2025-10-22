@@ -1,9 +1,9 @@
 #include <iostream>
-#include<cstdlib>
-#include<ctime>
+#include <cstdlib>
+#include <random>
 #include "../include/rpg.h"
 
-GameManager printmap(int *playerLocation, int *exit) {
+void printmap(int *playerLocation, int *exit) {
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             std:: cout << "[";
@@ -18,12 +18,15 @@ GameManager printmap(int *playerLocation, int *exit) {
         }
     }
 }
-GameManager::GameManager () {
-    
+
+int getDice() {
+    std::random_device rd;                         // 하드웨어 기반 시드
+    std::mt19937 gen(rd());                        // Mersenne Twister 엔진
+    std::uniform_int_distribution<int> dist(1, 100); // 1~100 사이 정수 생성
+    int num1 = dist(gen) % 6 + 1;
+    int num2 = dist(gen) % 6 + 1;
+    return num1 + num2;
 }
-GameManager dice() {
-    srand((unsigned int)time(NULL));
-    return (rand() % 6 + 1) + (rand() % 6 + 1);
 }
  bool ifBattleStart() {
     printmap();
