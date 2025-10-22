@@ -1,11 +1,11 @@
 #pragma once//include 시 #include "../include/rpg.h" 사용할 것(상대경로)
 class GameManager {
     public: 
-    int map[5][5] = {0, };//맵 배열 생성
-    void printMap(int map[5][5]);//맵 출력 함수
+    int map[5][5];//맵 배열 생성
+    void printMap(int map);//맵 출력 함수
     int getExit(int map[5][5]);//배열 인덱스의 주소 반환
     int getDice();//주사위 함수
-    void ifBattleStart();
+    bool ifBattleStart();
     void battle();
     void gameOver();
     void gameClear();
@@ -28,5 +28,5 @@ class Player : Character {
 };
 class Enemy : Character {
     int makeLocaiotn ();//배열 인덱스의 주소 반환
-    void getEnemyAction(); //적 행동 선택
+    void getEnemyAction(); //적 행동 무작위 결정
 };
