@@ -2,8 +2,7 @@
 #include<cstdlib>
 #include<ctime>
 #include "../include/rpg.h"
-
-GameManager printmap(int *playerLocation, int *exit) {
+void printmap(int *playerLocation, int *exit) {
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             std:: cout << "[";
@@ -18,10 +17,7 @@ GameManager printmap(int *playerLocation, int *exit) {
         }
     }
 }
-GameManager::GameManager () {
-    
-}
-GameManager dice() {
+int dice() {
     srand((unsigned int)time(NULL));
     return (rand() % 6 + 1) + (rand() % 6 + 1);
 }
@@ -34,7 +30,7 @@ GameManager dice() {
         return false;
     }
  }
-    void battle() {
+void battle() {
         std::cout<< "전투 시작" << endl;
         while(1) {
             getPlayerAction();
@@ -43,5 +39,9 @@ GameManager dice() {
 
         }
     }
-    void gameOver();
-    void gameClear();
+    void gameOver() {
+
+    }
+    void gameClear() {
+
+    } 
