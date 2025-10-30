@@ -15,9 +15,9 @@ void printmap(int playerLocation, int enemyLocation, int *exit) {
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             std:: cout << "[";
-            if ( ) {//player 위치
+            if ((i*10+j) == playerLocation ) {//player 위치
                 std:: cout << "P";
-            } else if ( ) {//exit 위치
+            } else if ((i*10+j) == enemyLocation ) {//exit 위치
                 std:: cout << "E";
             } else {
                 std:: cout << " ";//빈공간
@@ -35,10 +35,9 @@ int getDice() {
     int num2 = dist(gen) % 6 + 1;
     return num1 + num2;
 }
-}
- bool ifBattleStart() {
-    printmap();
-    if(Player.location == Enemy.location) {
+
+ bool ifBattleStart(int playerLocation, int enemyLocation) {
+    if(playerLocation == enemyLocation) {
         return true;
     }
     else {
