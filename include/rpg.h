@@ -10,7 +10,7 @@ class Character {
     int setHp(int atk = 10, int def = 100);//hp 수정 후 리턴
 
 };
-class Player : Character {
+class Player : public Character {
     public:
     int getLocation(int *location);//배열 인덱스의 주소 반환
     int move(int *location);//배열 인덱스의 주소 반환
@@ -19,7 +19,7 @@ class Player : Character {
     int defend(Enemy& refEnemy);
     void run();
 };
-class Enemy : Character {
+class Enemy : public Character {
     public:
     int getEnemyAction(); //적 행동 무작위 결정
     int attack(Player& refPlayer);

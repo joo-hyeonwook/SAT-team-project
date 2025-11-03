@@ -11,11 +11,11 @@ int* getMap() {
         arr[i] = 0; // 예시로 값 초기화
     return arr;     // OK (스택에서 안 사라짐)
 }
-int* getStart(int map) {
+int* getStart(int map[5][5]) {
     return &map[0][0];
 }
-int* getExit(int map) {
-    return map[4][4]
+int* getExit(int map[5][5]) {
+    return &map[4][4];
 }
 void printmap(int playerLocation, int enemyLocation, int *exit) {
     for (int i = 0; i < 5; ++i) {
@@ -53,12 +53,12 @@ bool ifBattleStart(int playerLocation, int enemyLocation) {
 void battle(Player &refPlayer, Enemy &refEnemy) {
         std::cout<< "전투 시작" << std::endl;
         while(1) {
-            int playerAction = getPlayerAction();
+            int playerAction = refPlayer.getPlayerAction();
             if (playerAction == 1) {
-                refPlayer.attack(refPlayer, refEnemy);
+                refPlayer.attack(refEnemy);
             }
             else if(playerAction == 2) {
-                refPlayer.defend(refPlayer, refEnemy);
+                refPlayer.defend(refEnemy);
             }
             else if(playerAction == 3) {
                 refPlayer.run(); 
@@ -67,7 +67,7 @@ void battle(Player &refPlayer, Enemy &refEnemy) {
                 break;
             }
             
-            int enemyAction = getEnemyAction();
+            int enemyAction = refEnemy.getEnemyAction();
             
             if ( enemyAction == 1) {
 
