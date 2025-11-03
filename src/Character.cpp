@@ -7,6 +7,7 @@ Character::Character() {
     this->hp = 50;
     this->atk = 10;
     this->def = 100;
+    this->location = &map[0][0];
 }
 void Character::setHp(int atk, int def) {
     this->hp = this->hp - atk*(def/100);

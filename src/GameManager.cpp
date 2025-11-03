@@ -11,6 +11,12 @@ int* getMap() {
         arr[i] = 0; // 예시로 값 초기화
     return arr;     // OK (스택에서 안 사라짐)
 }
+int* getStart(int map) {
+    return &map[0][0];
+}
+int* getExit(int map) {
+    return map[4][4]
+}
 void printmap(int playerLocation, int enemyLocation, int *exit) {
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
@@ -36,34 +42,40 @@ int getDice() {
     return num1 + num2;
 }
 
- bool ifBattleStart(int playerLocation, int enemyLocation) {
+bool ifBattleStart(int playerLocation, int enemyLocation) {
     if(playerLocation == enemyLocation) {
         return true;
     }
     else {
         return false;
     }
- }
-    void battle(Player &refPlayer, Enemy &refEnemy) {
+}
+void battle(Player &refPlayer, Enemy &refEnemy) {
         std::cout<< "전투 시작" << std::endl;
         while(1) {
-            if (getPlayerAction() == 1) {
-                refPlayer.attack(int refPlayer.atk, int refEnemy.hp)
+            int playerAction = getPlayerAction();
+            if (playerAction == 1) {
+                refPlayer.attack(refPlayer, refEnemy);
             }
-            else if(getPlayerAction() == 2) {
-                refPlayer.defend(int refPlayer.def, int refEnemy.hp);
+            else if(playerAction == 2) {
+                refPlayer.defend(refPlayer, refEnemy);
             }
-            else if(getPlayerAction() == 3) {
-                
+            else if(playerAction == 3) {
+                refPlayer.run(); 
             }
+            if (refEnemy.getHp() == 0) {
+                break;
+            }
+            
+            int enemyAction = getEnemyAction();
+            
+            if ( enemyAction == 1) {
 
-            if (getEnemyAction() == 1) {
+            }
+            else if( enemyAction == 2) {
 
             }
-            else if(getEnemyAction() == 2) {
-
-            }
-            if (refPlayer.hp == 0) {
+            if (refPlayer.getHp() == 0) {
                 gameOver();
             }
 
