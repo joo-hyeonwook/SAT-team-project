@@ -1,15 +1,5 @@
 #pragma once//include 시 #include "../include/rpg.h" 사용할 것(상대경로)
-class GameManager {
-    public: 
-    int *getMap();//맵 배열 생성
-    void printMap(int map);//맵 출력 함수
-    int getExit(int map[5][5]);//배열 인덱스의 주소 반환
-    int getDice();//주사위 함수
-    bool ifBattleStart(int playerLocation, int enemyLocation);
-    void battle(Player &refPlayer, Enemy &refEnemy);
-    void gameOver();
-    void gameClear();
-};
+
 class Character {
     int location;//배열 인덱스의 주소 (map[i][j]라면 location == i*10+j)
     int hp;//05 고정
@@ -18,6 +8,7 @@ class Character {
     public:
     int attack(int myAtk, int opponentHp);//hp = 상대방 체력
     int defend(int myDef, int opponentHp);//hp = 상대방 체력
+
 
 };
 class Player : Character {
@@ -34,3 +25,14 @@ class Enemy : Character {
     int makeLocaiotn ();//배열 인덱스의 주소 반환
     int getEnemyAction(); //적 행동 무작위 결정 후 리턴(공격1, 방어2)
 };
+namespace GameManager {
+    int* getMap();//맵 생성 함수
+    int* getExit(int map);
+    void printMap(int map);//맵 출력 함수
+    int getExit(int map[5][5]);//배열 인덱스의 주소 반환
+    int getDice();//주사위 함수
+    bool ifBattleStart(int playerLocation, int enemyLocation);
+    void battle(Player &refPlayer, Enemy &refEnemy);
+    void gameOver();
+    void gameClear();
+}
