@@ -1,29 +1,30 @@
 #pragma once//include 시 #include "../include/rpg.h" 사용할 것(상대경로)
 
 class Character {
-    int *location;//배열 인덱스의 주소 (map[i][j]라면 location == i*10+j)
+    int *location;//배열 인덱스의 주소 
     int hp;//05 고정
     int atk;//10 고정
     int def;//100 고정
-public:
-    void setHp(int atk = 10, int def = 100);// 체력 재설정
-    int getHp();//체력 받기용 함수
-
+    public:
+    int getHp() {return this->hp;}//hp 리턴
+    int setHp(int atk = 10, int def = 100);//hp 수정 후 리턴
 
 };
 class Player : Character {
     public:
     int getLocation(int *location);//배열 인덱스의 주소 반환
     int move(int *location);//배열 인덱스의 주소 반환
-    int getPlayerAction(); 
-    //플레이어 행동 선택(공격출 1, 방어 2, 도망치기 3 중 입력받아 리턴)
+    int getPlayerAction(); //플레이어 행동 선택
+    int attack(Enemy& refEnemy);
+    int defend(Enemy& refEnemy);
     void run();
 };
 class Enemy : Character {
-public:
-    int getEnemyAction(); //적 행동 무작위 결정 후 리턴(공격1, 방어2)
+    public:
+    int getEnemyAction(); //적 행동 무작위 결정
+    int attack(Player& refPlayer);
+    int defend(Player& refPlayer);
 };
-
 namespace GameManager {
     int* getMap();//맵 생성 함수
     int* getStart(int (*map)[5][5]);
