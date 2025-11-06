@@ -16,15 +16,15 @@ class Player : public Character {
     int* getLocation();//배열 인덱스의 주소 반환
     int move(int *location);//배열 인덱스의 주소 반환
     int getPlayerAction(); //플레이어 행동 선택
-    int playerAttack(Enemy& refEnemy, int enemyDef);
-    int playerDefend();
+    void playerAttack(Enemy& refEnemy, int enemyDef);
+    void playerDefend();
     void run();
 };
 class Enemy : public Character {
     public:
     int getEnemyAction(); //적 행동 무작위 결정
-    int enemyAttack(Player& refPlayer, int playerDef);
-    int enemyDefend();
+    void enemyAttack(Player& refPlayer, int playerDef);
+    void enemyDefend();
 };
 namespace GameManager {
     void printTutorial();
