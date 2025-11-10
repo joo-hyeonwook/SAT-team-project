@@ -18,7 +18,7 @@ class Player : public Character {
     int getPlayerAction(); //플레이어 행동 선택
     void playerAttack(Enemy& refEnemy, int enemyDef);
     void playerDefend();
-    void run();
+    bool run();
 };
 class Enemy : public Character {
     public:

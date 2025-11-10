@@ -51,6 +51,12 @@ void Player::playerDefend() {
         this->def = 100;
     }
 }
-void Player::run() {
-
+bool Player::run() {
+    int dice = getDice();
+    if (dice <= 7) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }

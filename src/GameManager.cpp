@@ -97,8 +97,10 @@ void battle(Player& player, Enemy& enemy) {
             player.playerDefend();
         }
         else if (playerAction == 3) { // 도망
-            player.run();
-            break;
+            bool ifRun = player.run();
+            if (ifRun == true) {
+                break;
+            }
         }
 
         // 전투 종료 체크
@@ -143,6 +145,7 @@ void battle(Player& player, Enemy& enemy) {
         }
         exit(1);
     }
+    
     void gameClear() {
         std::cout << "Game Clear!";
         for (int i = 5; i > 0; --i) {
