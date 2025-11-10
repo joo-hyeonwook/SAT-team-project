@@ -32,7 +32,7 @@ int* getStart(int map[5][5]) {
 int* getExit(int map[5][5]) {
     return &map[4][4];
 }
-void printmap(int playerLocation, int enemyLocation, int *exit) {
+void printMap(int playerLocation, int enemyLocation, int *exit) {
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             std:: cout << "[";
@@ -64,16 +64,15 @@ bool ifBattleStart(int playerLocation, int enemyLocation) {
     }
 }
 void battle(Player& player, Enemy& enemy) {
-    std::cout << "전투 시작!\n";
+    std::cout << "전투 시작!"<< std::endl;
 
     int turn = 1;
     while (true) {
-       std::cout << "\n===== 턴 " << turn++ << " =====\n";
-        std::cout << "플레이어 HP: " << player.getHp()
-            << " | 적 HP: " << enemy.getHp() << "\n";
+       std::cout << std::endl << "===== 턴 " << turn++ << " =====" << std::endl;
+        std::cout << "플레이어 HP: " << player.getHp() << " | 적 HP: " << enemy.getHp() << std::endl;
 
         //  플레이어 턴
-        std::cout << "\n>> 플레이어의 차례!\n";
+        std::cout << std::endl << ">> 플레이어의 차례!" << std::endl;
         int playerAction = player.getPlayerAction();
         if (playerAction == 0) {
             std::cout << "잘못된 입력입니다." << std::endl;
@@ -95,13 +94,13 @@ void battle(Player& player, Enemy& enemy) {
 
         // 전투 종료 체크
         if (enemy.getHp() <= 0) {
-            std::cout << "\n적을 물리쳤다!\n";
+            std::cout << std::endl << "적을 물리쳤다!" << std::endl;
             gameClear();
             break;
         }
 
         // 👾 적 턴
-        std::cout << "\n>> 적의 차례!\n";
+        std::cout << std::endl << ">> 적의 차례!" << std::endl;
         int enemyAction = enemy.getEnemyAction();
 
         if (enemyAction == 1) { // 공격
@@ -113,13 +112,13 @@ void battle(Player& player, Enemy& enemy) {
 
         // 전투 종료 체크
         if (player.getHp() <= 0) {
-            std::cout << "\n플레이어가 쓰러졌다...\n";
+            std::cout << std::endl << "플레이어가 쓰러졌다..." << std::endl;
             gameOver();
             break;
         }
 
         // 턴 종료 시 상태 표시
-        std::cout << "\n[턴 종료] 플레이어 HP: " << player.getHp()
+        std::cout << std::endl << "[턴 종료] 플레이어 HP: " << player.getHp()
             << " | 적 HP: " << enemy.getHp() << "\n";
         std::this_thread::sleep_for(std::chrono::seconds(2)); // 텀 약간 주기
         player.atk = 10;
