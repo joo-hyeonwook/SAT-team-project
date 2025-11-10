@@ -154,3 +154,9 @@ void battle(Player& player, Enemy& enemy) {
         }
         exit(1);
     }
+
+    void ifGameClear(Player &refPlayer, int* exit) {
+        if (refPlayer.location == exit) {
+            gameClear();
+        }
+    }

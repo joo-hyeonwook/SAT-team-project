@@ -36,5 +36,6 @@ namespace GameManager {
     bool ifBattleStart(int playerLocation, int enemyLocation);
     void battle(Player &refPlayer, Enemy &refEnemy);
     void gameOver();
+    void ifGameClear(Player &refPlayer, int* exit);
     void gameClear();
 }
