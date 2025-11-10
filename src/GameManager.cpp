@@ -74,10 +74,19 @@ void battle(Player& player, Enemy& enemy) {
         //  플레이어 턴
         std::cout << std::endl << ">> 플레이어의 차례!" << std::endl;
         int playerAction = player.getPlayerAction();
-        if (playerAction == 0) {
-            std::cout << "잘못된 입력입니다." << std::endl;
-            playerAction = player.getPlayerAction();
+
+        if (playerAction == 0) {//잘못된 입력
+    std::cout << "잘못된 입력입니다" << std::endl;
+    std::cin.clear(); // failbit 초기화
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // 버퍼 비우기
+    bool wrongInput = true;
+    while (wrongInput == true) {
+        playerAction = player.getPlayerAction();
+        if ((playerAction == 1) || (playerAction == 2) || (playerAction == 3)) {
+            break;
         }
+    }
+}
        
         
 
