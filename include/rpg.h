@@ -20,8 +20,6 @@ class Character {
 };
 class Player : public Character {
     public:
-    int* getLocation();//배열 인덱스의 주소 반환
-    int move(int *location);//배열 인덱스의 주소 반환
     int getPlayerAction(); //플레이어 행동 선택
     void playerAttack(Enemy& refEnemy, int enemyDef);
     void playerDefend();
@@ -35,14 +33,11 @@ class Enemy : public Character {
 };
 namespace GameManager {
     void printTutorial();
-    int* getMap();//맵 생성 함수
-    int* getStart(int (*map)[5][5]);
-    int* getExit(int (*map)[5][5]);
-    void printMap(int (*map)[5][5]);//맵 출력 함수
+    void printMap(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC);//맵 출력 함수
     int getDice();//주사위 함수
-    bool ifBattleStart(int playerLocation, int enemyLocation);
+    bool ifBattleStart(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC);
     void battle(Player &refPlayer, Enemy &refEnemy);
     void gameOver();
-    void ifGameClear(Player &refPlayer, int* exit);
+    void ifGameClear(Player &refPlayer);
     void gameClear();
 }

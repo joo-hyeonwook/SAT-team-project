@@ -1,26 +1,19 @@
 #include <iostream>
 #include "../include/rpg.h"
 
-int main() {
-    GameManager *manager = new GameManager();
-    Player *player = new Player();
-    Enemy *enemy[] = new Enemy[3]; 
+using namespace GameManager;
 
-    player.fitstLocation();
-    for (int i = 0; i < 3; i++) {
-        enemy[i].makeLocaiotn();
-    }
+int main() {
+    Player player;
+    Enemy enemy[3]; 
     while(1) {
-        manager.printMap(manager.map);
+        printMap(player, enemy[0], enemy[1], enemy[2]);
         while(1) {
-            player.move(player.location);
-            if (manager.ifBattleStart == true) {
-                manager.battle();
-            } 
+            player.move();
+            ifBattleStart(player, enemy[0], enemy[1], enemy[2]);
         }
+        ifGameClear(player);
     }
-    delete manager;
-    delete player;
-    delete[] enemy;
+
     return 0;
 }

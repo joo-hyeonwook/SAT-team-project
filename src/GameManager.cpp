@@ -20,31 +20,25 @@ void printTutorial() {
     std::cout << "도망치기는 성공 시 전투가 즉시 종료됩니다. 하지만 해당 타일에 적이 위치한다는 것은 변함없으므로 동일한 타일을 또 밟게 되면 전투가 시작됩니다. " << std::endl;
     std::cout << "이제 게임이 시작됩니다. 행운을 빕니다!" << std::endl;
 }
-int* getMap() {
-    int* arr = new int[5 * 5]; // 동적 메모리 
-    for (int i = 0; i < 25; i++)
-        arr[i] = 0; // 예시로 값 초기화
-    return arr;     // OK (스택에서 안 사라짐)
-}
-int* getStart(int map[5][5]) {
-    return &map[0][0];
-}
-int* getExit(int map[5][5]) {
-    return &map[4][4];
-}
-void printMap(int playerLocation, int enemyLocation, int *exit) {
+
+void printMap(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC) {
+    int playerLocationX = refPlayer.getLocationX();
+    int playerLocationY = refPlayer.getLocationY();
+    int exitX = 4;
+    int exitY = 4;
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             std:: cout << "[";
-            if ((i*10+j) == playerLocation ) {//player 위치
+            if ((i == playerLocationX)&&(j == playerLocationY)) {//player 위치
                 std:: cout << "P";
-            } else if ((i*10+j) == enemyLocation ) {//exit 위치
-                std:: cout << "E";
-            } else {
-                std:: cout << " ";//빈공간
             }
+            if ((i == exitX)&&(j == exitY)) {//exit 위치
+                std:: cout << "E";
+            }
+            std:: cout << " ";//빈공간
             std:: cout << "]";
         }
+        std::cout << std::endl;
     }
 }
 
@@ -104,10 +98,6 @@ void battle(Player& refPlayer, Enemy& refEnemy) {
                 }
             }
         }
-    }
-}
-       
-        
 
         int playerAtk = refPlayer.getAtk();
         int enemyAtk = refEnemy.getAtk();
