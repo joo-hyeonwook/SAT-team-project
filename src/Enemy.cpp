@@ -3,6 +3,23 @@
 #include "../include/rpg.h"
 
 using namespace GameManager;
+
+Enemy::Enemy() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(0, 4);
+    this->locationX = dist(gen);
+    this->locationY = dist(gen);
+    if((this->locationX == 0)&&(this->locationY == 0)) {
+        this->locationX = dist(gen);
+        this->locationY = dist(gen);
+    }
+    if((this->locationX == 4)&&(this->locationY == 4)) {
+        this->locationX = dist(gen);
+        this->locationY = dist(gen);
+        
+    }
+}
 int Enemy::getEnemyAction() {
     std::random_device rd;
     std::mt19937 gen(rd());
