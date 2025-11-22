@@ -55,56 +55,79 @@ int getDice() {
     return dist(gen) + dist(gen);//두 번 호출, 더해서 리턴
 }
 
-bool ifBattleStart(int playerLocation, int enemyLocation) {
-    if(playerLocation == enemyLocation) {
+bool ifBattleStart(Player& refPlayer, Enemy& refEnemyA, Enemy& refEnemyB, Enemy& refEnemyC) {
+    int playerLocationX = refPlayer.getLocationX();
+    int playerLocationY = refPlayer.getLocationY();
+    int enemyALocationX = refEnemyA.getLocationX();
+    int enemyALocationY = refEnemyA.getLocationY();
+    int enemyBLocationX = refEnemyB.getLocationX();
+    int enemyBLocationY = refEnemyB.getLocationY();
+    int enemyCLocationX = refEnemyC.getLocationX();
+    int enemyCLocationY = refEnemyC.getLocationY();
+    if((playerLocationX == enemyALocationX)&&(playerLocationX == enemyALocationX)) {
+        battle(refPlayer, refEnemyA);
+        return true;
+    }
+    if((playerLocationX == enemyBLocationX)&&(playerLocationX == enemyBLocationX)) {
+        battle(refPlayer, refEnemyB);
+        return true;
+    }
+    if((playerLocationX == enemyCLocationX)&&(playerLocationX == enemyCLocationX)) {
+        battle(refPlayer, refEnemyC);
         return true;
     }
     else {
         return false;
     }
 }
-void battle(Player& player, Enemy& enemy) {
+void battle(Player& refPlayer, Enemy& refEnemy) {
     std::cout << "전투 시작!"<< std::endl;
 
     int turn = 1;
     while (true) {
-       std::cout << std::endl << "===== 턴 " << turn++ << " =====" << std::endl;
-        std::cout << "플레이어 HP: " << player.getHp() << " | 적 HP: " << enemy.getHp() << std::endl;
+        std::cout << std::endl << "===== 턴 " << turn++ << " =====" << std::endl;
+        std::cout << "플레이어 HP: " << refPlayer.getHp() << " | 적 HP: " << refEnemy.getHp() << std::endl;
 
         //  플레이어 턴
         std::cout << std::endl << ">> 플레이어의 차례!" << std::endl;
-        int playerAction = player.getPlayerAction();
+        int playerAction = refPlayer.getPlayerAction();
 
         if (playerAction == 0) {//잘못된 입력
-    std::cout << "잘못된 입력입니다" << std::endl;
-    std::cin.clear(); // failbit 초기화
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // 버퍼 비우기
-    bool wrongInput = true;
-    while (wrongInput == true) {
-        playerAction = player.getPlayerAction();
-        if ((playerAction == 1) || (playerAction == 2) || (playerAction == 3)) {
-            break;
+            std::cout << "잘못된 입력입니다" << std::endl;
+            std::cin.clear(); // failbit 초기화
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // 버퍼 비우기
+            bool wrongInput = true;
+            while (wrongInput == true) {
+                playerAction = refPlayer.getPlayerAction();
+                if ((playerAction == 1) || (playerAction == 2) || (playerAction == 3)) {
+                    break;
+                }
+            }
         }
     }
 }
        
         
 
+        int playerAtk = refPlayer.getAtk();
+        int enemyAtk = refEnemy.getAtk();
+        int playerDef = refPlayer.getDef();
+        int enemyDef = refEnemy.getDef();
         if (playerAction == 1) { // 공격
-            player.playerAttack(enemy, enemy.def);
+            refPlayer.playerAttack(refEnemy, enemyDef);
         }
         else if (playerAction == 2) { // 방어
-            player.playerDefend();
+            refPlayer.playerDefend();
         }
         else if (playerAction == 3) { // 도망
-            bool ifRun = player.run();
+            bool ifRun = refPlayer.run();
             if (ifRun == true) {
                 break;
             }
         }
 
         // 전투 종료 체크
-        if (enemy.getHp() <= 0) {
+        if (refEnemy.getHp() <= 0) {
             std::cout << std::endl << "적을 물리쳤다!" << std::endl;
             gameClear();
             break;
@@ -112,28 +135,28 @@ void battle(Player& player, Enemy& enemy) {
 
         // 👾 적 턴
         std::cout << std::endl << ">> 적의 차례!" << std::endl;
-        int enemyAction = enemy.getEnemyAction();
+        int enemyAction = refEnemy.getEnemyAction();
 
         if (enemyAction == 1) { // 공격
-            enemy.enemyAttack(player, player.def);
+            refEnemy.enemyAttack(refPlayer, playerDef);
         }
         else if (enemyAction == 2) { // 방어
-            enemy.enemyDefend();
+            refEnemy.enemyDefend();
         }
 
         // 전투 종료 체크
-        if (player.getHp() <= 0) {
+        if (refPlayer.getHp() <= 0) {
             std::cout << std::endl << "플레이어가 쓰러졌다..." << std::endl;
             gameOver();
             break;
         }
 
         // 턴 종료 시 상태 표시
-        std::cout << std::endl << "[턴 종료] 플레이어 HP: " << player.getHp()
-            << " | 적 HP: " << enemy.getHp() << "\n";
+        std::cout << std::endl << "[턴 종료] 플레이어 HP: " << refPlayer.getHp()
+            << " | 적 HP: " << refEnemy.getHp() << "\n";
         std::this_thread::sleep_for(std::chrono::seconds(2)); // 텀 약간 주기
-        player.atk = 10;
-        enemy.atk = 10;
+        refPlayer.setAtk(10);
+        refEnemy.setAtk(10);
         
     }
 }
@@ -155,8 +178,12 @@ void battle(Player& player, Enemy& enemy) {
         exit(1);
     }
 
-    void ifGameClear(Player &refPlayer, int* exit) {
-        if (refPlayer.location == exit) {
+    void ifGameClear(Player &refPlayer) {
+        int exitX = 4;
+        int exitY = 4;
+        int playerLocationX = refPlayer.getLocationX();
+        int playerLocationY = refPlayer.getLocationY();
+        if ((playerLocationX == exitX)&&(playerLocationY == exitY)) {
             gameClear();
         }
     }

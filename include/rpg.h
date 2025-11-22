@@ -1,13 +1,20 @@
 #pragma once//include 시 #include "../include/rpg.h" 사용할 것(상대경로)
 
 class Character {
-    public:
-    int *location;//배열 인덱스의 주소 
+    protected:
+    int locationX, locationY;//배열 인덱스의 주소 
     int hp;//05 고정
     int atk;//10 고정
     int def;//100 고정
+    public:
     Character();
+    int getLocationX() {return this->locationX;}
+    int getLocationY() {return this->locationY;}
     int getHp() {return this->hp;}//hp 리턴
+    int getAtk() {return this->atk;}
+    int getDef() {return this->def;}
+    void setAtk(int newAtk);
+    void setDef(int newDef);
     void setHp(int atk = 10, int def = 100);//hp 수정 후 리턴
 
 };

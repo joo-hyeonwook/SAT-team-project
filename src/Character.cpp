@@ -8,6 +8,15 @@ Character::Character() {
     this->atk = 10;
     this->def = 100;
 }
+
+void Character::setAtk(int newAtk) {
+    this->atk = newAtk;
+}
+
+void Character::setDef(int newDef) {
+    this->def = newDef;
+}
+
 void Character::setHp(int atk, int def) {
     if (def < 0) def = 0;
     if (def > 100) def = 100;
